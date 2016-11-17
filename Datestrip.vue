@@ -17,7 +17,7 @@
                 :start='month.start' 
                 :selected='selected' 
                 :count='month.count'
-                :firstDOW=firstDOW
+                :firstDOW=firstDay
             >
             </month>
         </div>
@@ -58,7 +58,7 @@ export default {
         },
         'function': {   // function to call when selected
         },
-        'firstDOW': {   // first day of week
+        'firstDay': {   // first day of week
             type: Number,
             default: 1,
             validator(value) {
@@ -159,7 +159,7 @@ export default {
             // subtract 2 for buttons 
             // and 1 for possible other selected day
             this.columns = Math.floor(full_width / date_width) - 3
-        }
+        },
 
     },
 
@@ -180,7 +180,7 @@ export default {
     mounted() {
         this.calculateColumns();
         window.addEventListener('resize', this.calculateColumns)
-    }
+    },
 
 };
 </script>
