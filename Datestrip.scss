@@ -1,0 +1,102 @@
+// Variables
+$selected_background: LightGoldenRodYellow;
+$selected_foreground: black;
+$selected_border: red;
+
+$nav_background: #A9F5A9;
+$nav_foreground: #01DF01;
+$nav_hover: #04B404;
+
+$day_width: 30px;
+$day_background: white; //none;
+$day_foreground: #333;
+$border_color: #666;
+$month_background: #81BEF7;
+
+
+.datestrip {
+    display: flex;
+    width: 100%;
+
+    .selected {
+        color: $selected_foreground;
+        background-color: $selected_background;
+    }
+    
+    .selected_day {
+        @extend .selected;
+        border: 2px solid $selected_border;
+        box-shadow: 2px 2px 4px;
+        z-index: 999;
+    }
+
+    .nav {
+        min-width: $day_width;
+        min-height: 100%;
+        color: $nav_foreground;
+        background-color: $nav_background;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+            background-color: $nav_hover;
+        }
+    }
+
+    .months {
+        display: flex;
+        border-right: 1px solid $border_color;
+    }
+
+    .month {
+        border-left: 1px solid $border_color;
+
+        .name {
+            padding-left: 4px;
+            padding-right: 2px;
+            border-bottom: 1px solid $border_color;
+            background-color: $month_background;
+        }
+
+    }
+
+    .days {
+        display: flex;
+    }
+
+    .day {
+        background-color: $day_background;
+        color: $day_foreground;
+        padding: 3px 0px;
+        width: $day_width;
+        cursor: pointer;
+        z-index: 1;
+
+        .dow {
+            font-size: 8pt;
+            text-align: center;
+            font: 7pt Tahoma,helvetica,arial;
+        }
+        .number {
+            text-align: center;
+            font: 10pt Tahoma,helvetica,arial;
+        }
+
+        &:hover {
+            @extend .selected;
+        }
+        &.selected_day {
+            @extend .selected_day;
+        }
+    }
+
+    .week {
+        border-left: 1px solid $border_color;
+
+        &.selected_day {
+            @extend .selected_day;
+        }
+    }
+
+}
