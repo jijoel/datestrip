@@ -3,6 +3,8 @@ Datestrip
 
 A Datestrip object shows a line of dates. Users can select a given date. Functions will run based on the dates, or a page can be reloaded.
 
+![Datestrip](datestrip.png)
+
 
 Usage
 ------
