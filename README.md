@@ -47,3 +47,90 @@ Select the current date. When a date is selected, run the "foo" function. Put a 
 
     <datestrip link='/dates/'>
 
+
+Extended Example (as a basic Laravel project)
+------------------------------------------
+In this example, we are going to show a datestrip on the top of a page. When we click a date, we load another page (the other page could include information specific to the date). We use these Laravel files:
+
+### routes/web.php:
+
+    Route::get('/dates/{date?}', function($date=null){
+        return view('dates', compact('date'));
+    });
+
+### resources/views/dates.blade.php:
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Vue Datestrip</title>
+        <link rel="stylesheet" type="text/css" href="/css/app.css">
+    </head>
+    <body>
+    <div id="app">
+
+        <datestrip 
+            active='{{ $date }}' 
+            link="/dates/"
+        >   
+        </datestrip>
+
+        <script type="text/javascript" src="/js/app.js"></script>
+    </div>
+    </body>
+    </html>
+
+### package.json:
+
+  "dependencies": {
+    "moment": "^2.16.0"
+  },
+
+
+### gulpfile.js:
+
+    const elixir = require('laravel-elixir');
+
+    require('laravel-elixir-vue-2');
+
+    elixir(mix => {
+        mix.sass('app.scss')
+           .webpack('app.js');
+    });
+
+    Elixir.tasks.byName('sass').forEach(function (task) {
+        task.watch('resources/assets/components/**/*.scss');
+    });
+    Elixir.tasks.byName('webpack').forEach(function (task) {
+        task.watch('resources/assets/components/**/*.+(vue|js)');
+    });
+
+### resources/assets/js/app.js:
+
+    require('./bootstrap');
+
+    Vue.component('Datestrip', require('../components/Datestrip/Datestrip.vue'));
+
+    const app = new Vue({
+        el: '#app'
+    });
+
+### resources/assets/sass/app.scss:
+
+    // Fonts
+    @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+    // Variables
+    @import "variables";
+
+    // Bootstrap
+    @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+    @import "../components/Datestrip/Datestrip";
+
+Copy this code into each of the files, run `npm install` to install dependencies, `gulp` (or `gulp watch`) to generate app.js and app.css, then open it in the browser.
+
+
+TODO
+-----
+* Figure out how to load via npm or another package manager.
